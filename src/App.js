@@ -1,45 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Home from './Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import UserList from './UserList';
+import UserEdit from './UserEdit';
+import BiometricsList from './BiometricsList'
 
-function App() {
-
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    fetch('fitness/users')
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data);
-        setLoading(false);
-      })
-  }, []);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-
+const App = () => {
   return (
-    <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <div className="App-intro">
-              <h2>User List</h2>
-              {users.map(user =>
-                <tr key={user.id}>
-                      <td style={{whiteSpace: 'nowrap'}}>{user.name}</td>
-                      <td>{user.address}</td>
-                      <td>{user.phone}</td>
-                      <td>{user.id}</td>
-                </tr>
-              )}
-            </div>
-          </header>
-        </div>
-  );
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home/>}/>
+        <Route path='fitness/users' exact={true} element={<UserList/>}/>
+        <Route path='/users/:id' element={<UserEdit/>}/>
+        <Route path='fitness/users/1/biometrics' exact={true} element={<BiometricsList/>}/>
+
+      </Routes>
+    </Router>
+  )
 }
 
 export default App;
