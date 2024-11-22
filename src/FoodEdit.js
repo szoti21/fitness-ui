@@ -3,61 +3,61 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 
-const UserEdit = () => {
+const FoodEdit = () => {
   const initialFormState = {
-    name: '',
-    emailAddress: '',
-    address: '',
-    phone: '',
-    roleId: ''
+    foodName: '',
+    kcal: '',
+    protein: '',
+    fat: '',
+    carbohydrates: ''
   };
-  const [user, setUser] = useState(initialFormState);
+  const [food, setFood] = useState(initialFormState);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
     if (id !== 'new') {
-      fetch(`/fitness/users/${id}`)
+      fetch(`/fitness/food/${id}`)
         .then(response => response.json())
-        .then(data => setUser(data));
+        .then(data => setFood(data));
     }
-  }, [id, setUser]);
+  }, [id, setFood]);
 
   const handleChange = (event) => {
     const { name, value } = event.target
 
-    setUser({ ...user, [name]: value })
+    setFood({ ...food, [name]: value })
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (id == 'new'){
-      await fetch(`/fitness/users`, {
+      await fetch(`/fitness/food`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(food)
       });
-      setUser(initialFormState);
-      navigate('/fitness/users');
+      setFood(initialFormState);
+      navigate('/fitness/food');
     } else {
-      await fetch(`/fitness/users/${id}`, {
+      await fetch(`/fitness/food/${id}`, {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(food),
       });
-      setUser(initialFormState);
-      navigate('/fitness/users');
+      setFood(initialFormState);
+      navigate('/fitness/food');
     }
   }
 
-  const title = <h2>{user.id ? 'Edit User' : 'Add User'}</h2>;
+  const title = <h2>{food.id ? 'Edit Food' : 'Add Food'}</h2>;
 
   return (<div>
       <AppNavbar/>
@@ -65,33 +65,33 @@ const UserEdit = () => {
         {title}
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label for="name">Name</Label>
-            <Input type="text" name="name" id="name" value={user.name || ''}
+            <Label for="foodName">Name</Label>
+            <Input type="text" name="foodName" id="foodName" value={food.foodName}
                    onChange={handleChange} autoComplete="name"/>
           </FormGroup>
           <FormGroup>
-            <Label for="emailAddress">Email Address</Label>
-            <Input type="text" name="emailAddress" id="emailAddress" value={user.emailAddress || ''}
+            <Label for="kcal">kcal</Label>
+            <Input type="number" name="kcal" id="kcal" value={food.kcal || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="address">Address</Label>
-            <Input type="text" name="address" id="address" value={user.address || ''}
+            <Label for="protein">Protein</Label>
+            <Input type="number" name="protein" id="protein" value={food.protein || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="phone">Phone</Label>
-            <Input type="text" name="phone" id="phone" value={user.phone || ''}
+            <Label for="fat">Fat</Label>
+            <Input type="number" name="fat" id="fat" value={food.fat || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="roleId">Role</Label>
-            <Input type="number" name="roleId" id="roleId" value={user.roleId || ''}
+            <Label for="carbohydrates">Carbohydrates</Label>
+            <Input type="number" name="carbohydrates" id="carbohydrates" value={food.carbohydrates || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}
-            <Button color="secondary" tag={Link} to="/fitness/users">Cancel</Button>
+            <Button color="secondary" tag={Link} to="/fitness/food">Cancel</Button>
           </FormGroup>
         </Form>
       </Container>
@@ -100,4 +100,4 @@ const UserEdit = () => {
 
 };
 
-export default UserEdit;
+export default FoodEdit;

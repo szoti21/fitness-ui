@@ -9,10 +9,10 @@ const Home = () => {
     <div>
       <AppNavbar/>
       <Container fluid>
-        <Button color="link"><Link to="/fitness/users">Manage Users</Link></Button>
+        <div>Welcome xyz! or Redirect to login?</div>
       </Container>
       <Container fluid>
-              <Button color="link"><Link to="/fitness/users/1/biometrics">Manage My Biometrics</Link></Button>
+        <div>Your progress this month: ... check it out in more detail, check your recommended diet</div>
       </Container>
     </div>
 

@@ -43,9 +43,10 @@ const UserList = () => {
       <td>{user.emailAddress}</td>
       <td>{user.address}</td>
       <td>{user.phone}</td>
+      <td>{user.roleId}</td>
       <td>
         <ButtonGroup>
-          <Button size="sm" color="primary" tag={Link} to={"/users/" + user.id}>Edit</Button>
+          <Button size="sm" color="primary" tag={Link} to={"/fitness/users/" + user.id}>Edit</Button>
           <Button size="sm" color="danger" onClick={() => remove(user.id)}>Delete</Button>
         </ButtonGroup>
       </td>
@@ -57,7 +58,7 @@ const UserList = () => {
       <AppNavbar/>
       <Container fluid>
         <div className="float-end">
-          <Button color="success" tag={Link} to="/users/new">Add User</Button>
+          <Button color="success" tag={Link} to="/fitness/users/new">Add User</Button>
         </div>
         <h3>MY USERS</h3>
         <Table className="mt-4">
@@ -68,6 +69,7 @@ const UserList = () => {
             <th>EMAIL ADDRESS</th>
             <th>ADDRESS</th>
             <th>PHONE</th>
+            <th>ROLE</th>
             <th>Actions</th>
           </tr>
           </thead>
