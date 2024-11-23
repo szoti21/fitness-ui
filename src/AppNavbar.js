@@ -27,7 +27,7 @@ const AppNavbar = () => {
             <NavLink href="https://google.com">Sign up</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="https://google.com">Login</NavLink>
+            <NavLink tag={Link} to="/auth/login">Login</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="https://google.com">Options</NavLink>

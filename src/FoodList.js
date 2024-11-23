@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
+import { fetchWithAuth } from './Utils';
 
 const FoodList = () => {
 
@@ -11,20 +12,26 @@ const FoodList = () => {
   useEffect(() => {
     setLoading(true);
 
-    fetch('/fitness/food')
+ fetchWithAuth('/fitness/food', {
+       method: 'GET'
+      })
       .then(response => response.json())
              .then(data => {
                setFoods(data);
                setLoading(false);
-             })
+             }).catch((error) => {
+                       console.error("Error fetching token:", error);
+                     });
   }, []);
 
   const remove = async (id) => {
+    const token = sessionStorage.getItem("authToken");
     await fetch(`/fitness/food/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     }).then(() => {
       let updatedFoods = [...foods].filter(i => i.id !== id);
