@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
 
 const Home = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
+    const storedUsername = sessionStorage.getItem("username");
+    console.log("user:", storedUsername);
+    if (token && storedUsername) {
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
+    }
+  }, []);
+
   return (
     <div>
       <AppNavbar/>
-      <Container fluid>
-        <div>Welcome xyz! or Redirect to login?</div>
-      </Container>
-      <Container fluid>
-        <div>Your progress this month: ... check it out in more detail, check your recommended diet</div>
-      </Container>
+      {isLoggedIn ? (
+        <Container fluid>
+          <div>Welcome {username}!</div>
+        </Container>
+      ) : (
+        <Container fluid>
+          <div>Please Log in</div>
+        </Container>
+      )}
     </div>
 
   );

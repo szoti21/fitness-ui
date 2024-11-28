@@ -1,7 +1,9 @@
-  import React, { useEffect, useState } from 'react';
+  import React, { useState } from 'react';
   import { Link, useNavigate, useParams } from 'react-router-dom';
   import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
   import AppNavbar from './AppNavbar';
+  import { jwtDecode } from 'jwt-decode';
+  import { fetchWithAuth } from './Utils';
 
   const Login = () => {
     const initialFormState = {
@@ -35,14 +37,23 @@
             });
 
       setLogin(initialFormState);
-      navigate('/');
-
-
   }
 
   const setToken = (data) => {
       console.log("token: ", data);
       sessionStorage.setItem("authToken", data);
+
+      const decoded = jwtDecode(data);
+
+      fetchWithAuth(`/fitness/users/${decoded.id}`, {
+             method: 'GET'
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.name);
+          sessionStorage.setItem("username", data.name);
+          navigate('/');
+        }, []);
   }
 
   return (<div>
@@ -52,7 +63,7 @@
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label for="emailAddress">Email</Label>
-            <Input type="text" name="emailAddress" id="emailAddress" value={login.emailAddress}
+            <Input type="email" name="emailAddress" id="emailAddress" value={login.emailAddress}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>

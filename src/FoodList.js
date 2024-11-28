@@ -26,13 +26,8 @@ const FoodList = () => {
 
   const remove = async (id) => {
     const token = sessionStorage.getItem("authToken");
-    await fetch(`/fitness/food/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
+    await fetchWithAuth(`/fitness/food/${id}`, {
+      method: 'DELETE'
     }).then(() => {
       let updatedFoods = [...foods].filter(i => i.id !== id);
       setFoods(updatedFoods);

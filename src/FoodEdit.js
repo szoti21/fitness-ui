@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
+import { fetchWithAuth } from './Utils';
 
 const FoodEdit = () => {
   const initialFormState = {
@@ -17,7 +18,7 @@ const FoodEdit = () => {
 
   useEffect(() => {
     if (id !== 'new') {
-      fetch(`/fitness/food/${id}`)
+      fetchWithAuth(`/fitness/food/${id}`)
         .then(response => response.json())
         .then(data => setFood(data));
     }
@@ -33,23 +34,15 @@ const FoodEdit = () => {
     event.preventDefault();
 
     if (id == 'new'){
-      await fetch(`/fitness/food`, {
+      await fetchWithAuth(`/fitness/food`, {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(food)
       });
       setFood(initialFormState);
       navigate('/fitness/food');
     } else {
-      await fetch(`/fitness/food/${id}`, {
+      await fetchWithAuth(`/fitness/food/${id}`, {
         method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(food),
       });
       setFood(initialFormState);

@@ -1,10 +1,35 @@
-import React, { useState } from 'react';
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Collapse, Nav, Navbar, NavbarBrand, NavItem, NavLink, ButtonDropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
 
 const AppNavbar = () => {
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    // Check sessionStorage for login details
+    const token = sessionStorage.getItem("authToken");
+    const storedUsername = sessionStorage.getItem("username");
+    console.log("user:", storedUsername);
+    if (token && storedUsername) {
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  const handleLogout = () => {
+      sessionStorage.removeItem("authToken");
+      sessionStorage.removeItem("username");
+      setIsLoggedIn(false);
+      setUsername("");
+      window.location.href = '/';
+  };
+
+  const toggle = () => setDropdown(!dropdown);
 
   return (
     <Navbar color="dark" dark expand="md">
@@ -18,13 +43,10 @@ const AppNavbar = () => {
         <NavbarBrand tag={Link} to="/fitness/users">Manage Users</NavbarBrand>
 
       </Nav>
-      <NavbarToggler onClick={() => { setIsOpen(!isOpen) }}/>
-
-
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="justify-content-end" style={{width: "100%"}} navbar>
+      {!isLoggedIn ? (
+        <Nav className="justify-content-end" style={{width: "20%"}} navbar>
           <NavItem>
-            <NavLink href="https://google.com">Sign up</NavLink>
+            <NavLink tag={Link} to="/auth/registration">Sign up</NavLink>
           </NavItem>
           <NavItem>
             <NavLink tag={Link} to="/auth/login">Login</NavLink>
@@ -33,7 +55,19 @@ const AppNavbar = () => {
             <NavLink href="https://google.com">Options</NavLink>
           </NavItem>
         </Nav>
-      </Collapse>
+      ) : (
+
+          <Nav className="justify-content-end" style={{ width: '20%' }} navbar>
+             <ButtonDropdown isOpen={dropdown} toggle={toggle} id="dropdown-basic-button">
+               <DropdownToggle caret>{username}</DropdownToggle>
+               <DropdownMenu>
+                 <DropdownItem href="#/action-1">Profile Settings</DropdownItem>
+                 <DropdownItem onClick={handleLogout}>Log out</DropdownItem>
+               </DropdownMenu>
+             </ButtonDropdown>
+          </Nav>
+      )}
+
     </Navbar>
   );
 };

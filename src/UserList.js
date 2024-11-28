@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
+import { fetchWithAuth } from './Utils';
 
 const UserList = () => {
 
@@ -11,7 +12,7 @@ const UserList = () => {
   useEffect(() => {
     setLoading(true);
 
-    fetch('/fitness/users')
+    fetchWithAuth('/fitness/users')
       .then(response => response.json())
              .then(data => {
                setUsers(data);
@@ -20,12 +21,8 @@ const UserList = () => {
   }, []);
 
   const remove = async (id) => {
-    await fetch(`/fitness/users/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
+    await fetchWithAuth(`/fitness/users/${id}`, {
+      method: 'DELETE'
     }).then(() => {
       let updatedUsers = [...users].filter(i => i.id !== id);
       setUsers(updatedUsers);
@@ -41,7 +38,7 @@ const UserList = () => {
       <td style={{whiteSpace: 'nowrap'}}>{user.id}</td>
       <td>{user.name}</td>
       <td>{user.emailAddress}</td>
-      <td>{user.address}</td>
+      <td>{user.birthDate}</td>
       <td>{user.phone}</td>
       <td>{user.roleId}</td>
       <td>
@@ -67,7 +64,7 @@ const UserList = () => {
             <th>ID</th>
             <th>NAME</th>
             <th>EMAIL ADDRESS</th>
-            <th>ADDRESS</th>
+            <th>BIRTH DATE</th>
             <th>PHONE</th>
             <th>ROLE</th>
             <th>Actions</th>

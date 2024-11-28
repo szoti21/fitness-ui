@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
+import { fetchWithAuth } from './Utils';
 
 const UserEdit = () => {
   const initialFormState = {
     name: '',
     emailAddress: '',
-    address: '',
+    birthDate: '',
     phone: '',
     roleId: ''
   };
@@ -17,7 +18,7 @@ const UserEdit = () => {
 
   useEffect(() => {
     if (id !== 'new') {
-      fetch(`/fitness/users/${id}`)
+      fetchWithAuth(`/fitness/users/${id}`)
         .then(response => response.json())
         .then(data => setUser(data));
     }
@@ -33,23 +34,15 @@ const UserEdit = () => {
     event.preventDefault();
 
     if (id == 'new'){
-      await fetch(`/fitness/users`, {
+      await fetchWithAuth(`/fitness/users`, {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(user)
       });
       setUser(initialFormState);
       navigate('/fitness/users');
     } else {
-      await fetch(`/fitness/users/${id}`, {
+      await fetchWithAuth(`/fitness/users/${id}`, {
         method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(user),
       });
       setUser(initialFormState);
@@ -71,17 +64,17 @@ const UserEdit = () => {
           </FormGroup>
           <FormGroup>
             <Label for="emailAddress">Email Address</Label>
-            <Input type="text" name="emailAddress" id="emailAddress" value={user.emailAddress || ''}
+            <Input type="email" name="emailAddress" id="emailAddress" value={user.emailAddress || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="address">Address</Label>
-            <Input type="text" name="address" id="address" value={user.address || ''}
+            <Label for="birthDate">Birth Date</Label>
+            <Input type="date" name="birthDate" id="birthDate" value={user.birthDate || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
             <Label for="phone">Phone</Label>
-            <Input type="text" name="phone" id="phone" value={user.phone || ''}
+            <Input type="tel" name="phone" id="phone" value={user.phone || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
