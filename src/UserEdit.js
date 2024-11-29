@@ -10,9 +10,10 @@ const UserEdit = () => {
     emailAddress: '',
     birthDate: '',
     phone: '',
-    roleId: ''
+    role: ''
   };
   const [user, setUser] = useState(initialFormState);
+  const [roles, setRoles] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -22,13 +23,20 @@ const UserEdit = () => {
         .then(response => response.json())
         .then(data => setUser(data));
     }
+    fetchWithAuth(`/fitness/roles`)
+        .then(response => response.json())
+        .then(data => setRoles(data));
   }, [id, setUser]);
 
   const handleChange = (event) => {
     const { name, value } = event.target
-
     setUser({ ...user, [name]: value })
+
   }
+
+   const handleRoleChange = (e) => {
+      setUser({...user, role:{roleId:e.target.value}});
+   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -78,9 +86,11 @@ const UserEdit = () => {
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="roleId">Role</Label>
-            <Input type="number" name="roleId" id="roleId" value={user.roleId || ''}
-                   onChange={handleChange} autoComplete="address-level1"/>
+            <select id="role-dropdown" value={user.role.roleId} onChange={handleRoleChange}>
+              {roles.map((role) => {
+                  return <option key={role.roleId} value={role.roleId}>{role.roleName}</option>;
+              })}
+            </select>
           </FormGroup>
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}

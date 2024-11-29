@@ -40,7 +40,7 @@ const UserList = () => {
       <td>{user.emailAddress}</td>
       <td>{user.birthDate}</td>
       <td>{user.phone}</td>
-      <td>{user.roleId}</td>
+      <td>{user.role.roleName}</td>
       <td>
         <ButtonGroup>
           <Button size="sm" color="primary" tag={Link} to={"/fitness/users/" + user.id}>Edit</Button>
