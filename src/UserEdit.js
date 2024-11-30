@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { fetchWithAuth } from './Utils';
+import DatePicker from "react-datepicker";
 
 const UserEdit = () => {
   const initialFormState = {
@@ -36,6 +37,10 @@ const UserEdit = () => {
 
    const handleRoleChange = (e) => {
       setUser({...user, role:{roleId:e.target.value}});
+   }
+
+   const handleDateChange = (e) => {
+      setUser({...user, birthDate:e});
    }
 
   const handleSubmit = async (event) => {
@@ -77,8 +82,8 @@ const UserEdit = () => {
           </FormGroup>
           <FormGroup>
             <Label for="birthDate">Birth Date</Label>
-            <Input type="date" name="birthDate" id="birthDate" value={user.birthDate || ''}
-                   onChange={handleChange} autoComplete="address-level1"/>
+            <div/>
+            <DatePicker selected={user.birthDate} onChange={handleDateChange} />
           </FormGroup>
           <FormGroup>
             <Label for="phone">Phone</Label>

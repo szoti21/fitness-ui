@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Collapse, Nav, Navbar, NavbarBrand, NavItem, NavLink, ButtonDropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 
 const AppNavbar = () => {
@@ -9,15 +10,18 @@ const AppNavbar = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [decodedId, setDecodedId] = useState(null);
 
   useEffect(() => {
     // Check sessionStorage for login details
     const token = sessionStorage.getItem("authToken");
     const storedUsername = sessionStorage.getItem("username");
+
     console.log("user:", storedUsername);
     if (token && storedUsername) {
       setIsLoggedIn(true);
       setUsername(storedUsername);
+      setDecodedId((jwtDecode(token)).id);
     }
   }, []);
 
@@ -31,12 +35,14 @@ const AppNavbar = () => {
 
   const toggle = () => setDropdown(!dropdown);
 
+
+
   return (
     <Navbar color="dark" dark expand="md">
 
       <Nav className="justify-content-between" style={{width: "70%"}} navbar>
         <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
-        <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">My biometrics</NavbarBrand>
+        <NavbarBrand tag={Link} to={decodedId ? `/fitness/users/${decodedId}/biometrics` : '/'}>My biometrics</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">My Intake</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">Intake Calculator</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/food">Manage Foods</NavbarBrand>

@@ -70,6 +70,7 @@ const FoodList = () => {
             <th>Protein</th>
             <th>Fat</th>
             <th>Carbohydrates</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>

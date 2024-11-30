@@ -4,6 +4,7 @@
   import AppNavbar from './AppNavbar';
   import { jwtDecode } from 'jwt-decode';
   import { fetchWithAuth } from './Utils';
+  import DatePicker from "react-datepicker";
 
   const Registration = () => {
     const initialFormState = {
@@ -21,6 +22,10 @@
         const { name, value } = event.target
 
         setRegistration({ ...registration, [name]: value })
+    }
+
+    const handleDateChange = (e) => {
+      setRegistration({...registration, birthDate:e});
     }
 
     const handleSubmit = async (event) => {
@@ -81,8 +86,8 @@
           </FormGroup>
           <FormGroup>
             <Label for="birthDate">Birth Date</Label>
-            <Input type="date" name="birthDate" id="birthDate" value={registration.birthDate}
-                   onChange={handleChange} autoComplete="address-level1"/>
+            <div/>
+            <DatePicker selected={registration.birthDate} onChange={handleDateChange} />
           </FormGroup>
           <FormGroup>
             <Label for="phone">Phone</Label>
