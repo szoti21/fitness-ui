@@ -67,7 +67,7 @@ const AppNavbar = () => {
              <ButtonDropdown isOpen={dropdown} toggle={toggle} id="dropdown-basic-button">
                <DropdownToggle caret>{username}</DropdownToggle>
                <DropdownMenu>
-                 <DropdownItem href="#/action-1">Profile Settings</DropdownItem>
+                 <DropdownItem tag={Link} to={ `/fitness/users/${decodedId}` } state={{ fromList: false }}>Profile Settings</DropdownItem>
                  <DropdownItem onClick={handleLogout}>Log out</DropdownItem>
                </DropdownMenu>
              </ButtonDropdown>

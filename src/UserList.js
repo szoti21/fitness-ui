@@ -49,7 +49,7 @@ const UserList = () => {
       <td>{user.role.roleName}</td>
       <td>
         <ButtonGroup>
-          <Button size="sm" color="primary" tag={Link} to={"/fitness/users/" + user.id}>Edit</Button>
+          <Button size="sm" color="primary" tag={Link} to={ `/fitness/users/${user.id}` } state={{ fromList: true }}>Edit</Button>
           <Button size="sm" color="danger" onClick={() => remove(user.id)}>Delete</Button>
         </ButtonGroup>
       </td>

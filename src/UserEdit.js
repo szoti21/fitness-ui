@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { fetchWithAuth } from './Utils';
 import DatePicker from "react-datepicker";
+import { jwtDecode } from 'jwt-decode';
 
 const UserEdit = () => {
   const initialFormState = {
@@ -15,15 +16,22 @@ const UserEdit = () => {
   };
   const [user, setUser] = useState(initialFormState);
   const [roles, setRoles] = useState([]);
+  const [fromList, setFromList] = useState(false);
+  const [decodedId, setDecodedId] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
+
 
   useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
+    setDecodedId((jwtDecode(token)).id);
     if (id !== 'new') {
       fetchWithAuth(`/fitness/users/${id}`)
         .then(response => response.json())
         .then(data => setUser(data));
     }
+
     fetchWithAuth(`/fitness/roles`)
         .then(response => response.json())
         .then(data => setRoles(data));
@@ -59,7 +67,14 @@ const UserEdit = () => {
         body: JSON.stringify(user),
       });
       setUser(initialFormState);
-      navigate('/fitness/users');
+      if (decodedId == user.id){
+        sessionStorage.setItem("username", user.name);
+      }
+      if (location.state.fromList){
+        navigate('/fitness/users');
+      } else {
+        navigate('/');
+      }
     }
   }
 
@@ -99,7 +114,7 @@ const UserEdit = () => {
           </FormGroup>
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}
-            <Button color="secondary" tag={Link} to="/fitness/users">Cancel</Button>
+            <Button color="secondary" tag={Link} to={fromList ? "/fitness/users" : "/"}>Cancel</Button>
           </FormGroup>
         </Form>
       </Container>
