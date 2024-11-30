@@ -114,7 +114,7 @@ const UserEdit = () => {
           </FormGroup>
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}
-            <Button color="secondary" tag={Link} to={fromList ? "/fitness/users" : "/"}>Cancel</Button>
+            <Button color="secondary" tag={Link} to={location.state.fromList ? "/fitness/users" : "/"}>Cancel</Button>
           </FormGroup>
         </Form>
       </Container>
