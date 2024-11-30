@@ -9,6 +9,7 @@ const AppNavbar = () => {
   const [dropdown, setDropdown] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [username, setUsername] = useState("");
   const [decodedId, setDecodedId] = useState(null);
 
@@ -16,6 +17,9 @@ const AppNavbar = () => {
     // Check sessionStorage for login details
     const token = sessionStorage.getItem("authToken");
     const storedUsername = sessionStorage.getItem("username");
+    if (sessionStorage.getItem("role") == "admin"){
+      setIsAdmin(true);
+    }
 
     console.log("user:", storedUsername);
     if (token && storedUsername) {
@@ -28,7 +32,9 @@ const AppNavbar = () => {
   const handleLogout = () => {
       sessionStorage.removeItem("authToken");
       sessionStorage.removeItem("username");
+      sessionStorage.removeItem("role");
       setIsLoggedIn(false);
+      setIsAdmin(false);
       setUsername("");
       window.location.href = '/';
   };
@@ -40,15 +46,23 @@ const AppNavbar = () => {
   return (
     <Navbar color="dark" dark expand="md">
 
-      <Nav className="justify-content-between" style={{width: "70%"}} navbar>
+      {isAdmin ? (
+      <Nav className="justify-content-between" style={{width: "55%"}} navbar>
         <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
         <NavbarBrand tag={Link} to={decodedId ? `/fitness/users/${decodedId}/biometrics` : '/'}>My biometrics</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">My Intake</NavbarBrand>
-        <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">Intake Calculator</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/food">Manage Foods</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/users">Manage Users</NavbarBrand>
-
       </Nav>
+      ) : (
+      <Nav className="justify-content-between" style={{width: "30%"}} navbar>
+        <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+        <NavbarBrand tag={Link} to={decodedId ? `/fitness/users/${decodedId}/biometrics` : '/'}>My biometrics</NavbarBrand>
+        <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">My Intake</NavbarBrand>
+      </Nav>
+      )}
+
+
       {!isLoggedIn ? (
         <Nav className="justify-content-end" style={{width: "20%"}} navbar>
           <NavItem>

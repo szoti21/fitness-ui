@@ -52,6 +52,7 @@
         .then(data => {
           console.log(data.name);
           sessionStorage.setItem("username", data.name);
+          sessionStorage.setItem("role", data.role.roleName);
           navigate('/');
         }, []);
   }
