@@ -58,14 +58,14 @@ const IntakeEdit = () => {
         body: JSON.stringify(intake)
       });
       setIntake(initialFormState);
-      navigate('/fitness/users');
+      navigate(`/fitness/users/${decodedId}/intake`);
     } else {
       await fetchWithAuth(`/fitness/users/${decodedId}/intake/${date}`, {
         method: 'PUT',
         body: JSON.stringify(intake),
       });
       setIntake(initialFormState);
-      navigate('/fitness/users');
+      navigate(`/fitness/users/${decodedId}/intake`);
     }
   }
 

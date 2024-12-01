@@ -51,14 +51,14 @@ const BiometricsEdit = () => {
         body: JSON.stringify(biometrics)
       });
       setBiometrics(initialFormState);
-      navigate('/fitness/users');
+      navigate(`/fitness/users/${decodedId}/biometrics`);
     } else {
       await fetchWithAuth(`/fitness/users/${decodedId}/biometrics/${date}`, {
         method: 'PUT',
         body: JSON.stringify(biometrics),
       });
       setBiometrics(initialFormState);
-      navigate('/fitness/users');
+      navigate(`/fitness/users/${decodedId}/biometrics`);
     }
   }
 
