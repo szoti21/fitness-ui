@@ -61,7 +61,7 @@ const UserList = () => {
       <AppNavbar/>
       <Container fluid>
         <div className="float-end">
-          <Button color="success" tag={Link} to="/fitness/users/new">Add User</Button>
+          <Button color="success" tag={Link} to={"/fitness/users/new"} state={{ fromList: true }}>Add User</Button>
         </div>
         <h3>MY USERS</h3>
         <Table className="mt-4">

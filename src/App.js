@@ -8,6 +8,8 @@ import BiometricsList from './BiometricsList';
 import BiometricsEdit from './BiometricsEdit';
 import FoodList from './FoodList';
 import FoodEdit from './FoodEdit';
+import IntakeList from './IntakeList';
+import IntakeEdit from './IntakeEdit';
 import Login from './Login';
 import Registration from './Registration';
 
@@ -23,6 +25,8 @@ const App = () => {
         <Route path='fitness/users/:id/biometrics/:date' exact={true} element={<BiometricsEdit/>}/>
         <Route path='fitness/food' exact={true} element={<FoodList/>}/>
         <Route path='fitness/food/:id' element={<FoodEdit/>}/>
+        <Route path='fitness/users/:id/intake' exact={true} element={<IntakeList/>}/>
+        <Route path='fitness/users/:id/intake/:date' exact={true} element={<IntakeEdit/>}/>
         <Route path='auth/login' element={<Login/>}/>
         <Route path='auth/registration' element={<Registration/>}/>
 

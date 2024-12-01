@@ -12,7 +12,7 @@ const UserEdit = () => {
     emailAddress: '',
     birthDate: '',
     phone: '',
-    role: ''
+    role: {roleId: ''}
   };
   const [user, setUser] = useState(initialFormState);
   const [roles, setRoles] = useState([]);
@@ -106,7 +106,10 @@ const UserEdit = () => {
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
+            <Label for="role-dropdown">Role</Label>
+            <div/>
             <select id="role-dropdown" value={user.role.roleId} onChange={handleRoleChange}>
+              <option value="" disabled>Select role</option>
               {roles.map((role) => {
                   return <option key={role.roleId} value={role.roleId}>{role.roleName}</option>;
               })}

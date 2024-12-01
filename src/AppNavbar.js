@@ -50,7 +50,7 @@ const AppNavbar = () => {
       <Nav className="justify-content-between" style={{width: "55%"}} navbar>
         <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
         <NavbarBrand tag={Link} to={decodedId ? `/fitness/users/${decodedId}/biometrics` : '/'}>My biometrics</NavbarBrand>
-        <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">My Intake</NavbarBrand>
+        <NavbarBrand tag={Link} to={decodedId ? `/fitness/users/${decodedId}/intake` : '/'}>My Intake</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/food">Manage Foods</NavbarBrand>
         <NavbarBrand tag={Link} to="/fitness/users">Manage Users</NavbarBrand>
       </Nav>
