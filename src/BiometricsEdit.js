@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const BiometricsEdit = () => {
   const initialFormState = {
     date: '',
-    userId: '',
+    userId: 0,
     height: '',
     weight: '',
     bodyFat: ''
@@ -34,7 +34,6 @@ const BiometricsEdit = () => {
   const handleChange = (event) => {
     const { name, value } = event.target
     setBiometrics({ ...biometrics, [name]: value })
-
   }
 
   const handleDateChange = (e) => {
@@ -73,11 +72,6 @@ const BiometricsEdit = () => {
             <Label for="date">Date</Label>
             <div/>
             <DatePicker selected={biometrics.date} onChange={handleDateChange} dateFormat="yyyy-MM-dd"/>
-          </FormGroup>
-          <FormGroup>
-            <Label for="userId">UserId</Label>
-            <Input type="text" name="userId" id="userId" value={biometrics.userId || ''}
-                   onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
             <Label for="height">height</Label>

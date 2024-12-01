@@ -15,7 +15,8 @@ import {
   Tooltip,
   Legend,
   PointElement,
-  LineElement
+  LineElement,
+  Filler
 } from 'chart.js';
 
 ChartJS.register(
@@ -26,7 +27,8 @@ ChartJS.register(
   Tooltip,
   Legend,
   PointElement,
-  LineElement
+  LineElement,
+  Filler
 );
 
 const IntakeList = () => {
@@ -69,7 +71,7 @@ const IntakeList = () => {
   }
 
   const intakeList = intake.map(intake => {
-    return <tr key={intake.date, intake.userId}>
+    return <tr key={intake.date}>
       <td style={{whiteSpace: 'nowrap'}}>{displayDate(intake.date)}</td>
       <td>{intake.food.foodName}</td>
       <td>{intake.quantity}</td>
@@ -92,21 +94,21 @@ const data = {
       label: "Kcal",
       data: intake.map((item) => item.food.kcal/100*item.quantity),
       fill: true,
-      backgroundColor: "rgba(75,192,192,0.2)",
+      backgroundColor: "rgba(12,32,42,0.2)",
       borderColor: "rgba(12,32,42,1)"
     },
     {
       label: "Protein",
       data: intake.map((item) => item.food.protein/100*item.quantity),
       fill: true,
-      backgroundColor: "rgba(75,192,192,0.2)",
+      backgroundColor: "rgba(12,192,12,0.2)",
       borderColor: "rgba(12,192,12,1)"
     },
     {
       label: "fat",
       data: intake.map((item) => item.food.fat/100*item.quantity),
       fill: true,
-      backgroundColor: "rgba(75,192,192,0.2)",
+      backgroundColor: "rgba(192,32,42,0.2)",
       borderColor: "rgba(192,32,42,1)"
     }
   ]

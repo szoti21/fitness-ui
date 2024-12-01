@@ -3,8 +3,6 @@ import { Navigate } from "react-router-dom";
 
 export const fetchWithAuth = (url, options = {}) => {
     const token = sessionStorage.getItem("authToken"); // Retrieve the token
-    console.log("this is the token: ", token);
-    // Add the Authorization header if the token exists
     const headers = {
       ...options.headers,
       'Accept': 'application/json',

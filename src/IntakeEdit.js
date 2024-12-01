@@ -13,7 +13,7 @@ registerLocale("hu", hu);
 const IntakeEdit = () => {
   const initialFormState = {
     date: '',
-    userId: '',
+    userId: 0,
     food: {id: ''},
     quantity: ''
   };
@@ -89,11 +89,6 @@ const IntakeEdit = () => {
             <Label for="date">Date</Label>
             <div/>
             <DatePicker selected={ intake.date ? parseDate(intake.date) : intake.date} onChange={handleDateChange} showTimeSelect dateFormat="yyyy-MM-dd HH:mm" locale="hu" />
-          </FormGroup>
-          <FormGroup>
-            <Label for="userId">UserId</Label>
-            <Input type="text" name="userId" id="userId" value={intake.userId || ''}
-                   onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
             <Label for="food-dropdown">Food</Label>

@@ -11,7 +11,6 @@ const Home = () => {
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
     const storedUsername = sessionStorage.getItem("username");
-    console.log("user:", storedUsername);
     if (token && storedUsername) {
       setIsLoggedIn(true);
       setUsername(storedUsername);

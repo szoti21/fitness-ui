@@ -15,7 +15,8 @@ import {
   Tooltip,
   Legend,
   PointElement,
-  LineElement
+  LineElement,
+  Filler
 } from 'chart.js';
 
 ChartJS.register(
@@ -26,7 +27,8 @@ ChartJS.register(
   Tooltip,
   Legend,
   PointElement,
-  LineElement
+  LineElement,
+  Filler
 );
 
 const BiometricsList = () => {
@@ -69,9 +71,8 @@ const BiometricsList = () => {
   }
 
   const biometricsList = biometrics.map(biometric => {
-    return <tr key={biometric.date, biometric.userId}>
+    return <tr key={biometric.date}>
       <td style={{whiteSpace: 'nowrap'}}>{displayDate(biometric.date)}</td>
-      <td>{biometric.userId}</td>
       <td>{biometric.height}</td>
       <td>{biometric.weight}</td>
       <td>{biometric.bodyFat}</td>
@@ -115,11 +116,10 @@ const data = {
         <Table className="mt-4">
           <thead>
           <tr>
-            <th>DATE</th>
-            <th>ID</th>
-            <th>HEIGHT</th>
-            <th>WEIGHT</th>
-            <th>BODY FAT</th>
+            <th>Date</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Body Fat</th>
             <th>Actions</th>
           </tr>
           </thead>
