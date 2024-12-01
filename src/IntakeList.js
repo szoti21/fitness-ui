@@ -51,7 +51,6 @@ const IntakeList = () => {
   }, []);
 
   const remove = async (date) => {
-    console.log(date);
     await fetchWithAuth(`/fitness/users/${decodedId}/intake/${Date.parse(date)}`, {
       method: 'DELETE'
     }).then(() => {
@@ -66,7 +65,7 @@ const IntakeList = () => {
 
   const displayDate = (date) => {
     const parsedDate = new Date(date);
-    return format(parsedDate, 'yyyy-MM-dd');
+    return format(parsedDate, 'yyyy-MM-dd hh:mm');
   }
 
   const intakeList = intake.map(intake => {

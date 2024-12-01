@@ -21,7 +21,6 @@ const AppNavbar = () => {
       setIsAdmin(true);
     }
 
-    console.log("user:", storedUsername);
     if (token && storedUsername) {
       setIsLoggedIn(true);
       setUsername(storedUsername);

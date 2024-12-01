@@ -4,8 +4,11 @@ import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { jwtDecode } from 'jwt-decode';
 import { fetchWithAuth } from './Utils';
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale }  from "react-datepicker";
+import hu from "date-fns/locale/hu";
 import "react-datepicker/dist/react-datepicker.css";
+import { parse, format } from 'date-fns';
+registerLocale("hu", hu);
 
 const IntakeEdit = () => {
   const initialFormState = {
@@ -19,7 +22,6 @@ const IntakeEdit = () => {
   const navigate = useNavigate();
   const { date } = useParams();
   const [decodedId, setDecodedId] = useState(null);
-  const [dateFormat, setDateFormat] = useState(new Date());
 
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
@@ -29,7 +31,6 @@ const IntakeEdit = () => {
       fetchWithAuth(`/fitness/users/${(jwtDecode(token)).id}/intake/${date}`)
         .then(response => response.json())
         .then(data => setIntake(data));
-        console.log("fodidhelo: ", intake.food.id);
     }
     fetchWithAuth(`/fitness/food`)
             .then(response => response.json())
@@ -69,6 +70,13 @@ const IntakeEdit = () => {
     }
   }
 
+  const parseDate = (date) => {
+    const formattedString = format(date, "yyyy-MM-dd HH:mm", { awareOfUnicodeTokens: true })
+    const parsedDate = parse(formattedString, 'yyyy-MM-dd HH:mm', new Date());
+    return parsedDate;
+  }
+
+
   const title = <h2>{intake.date ? 'Edit Intake' : 'Add Intake'}</h2>;
 
 
@@ -80,7 +88,7 @@ const IntakeEdit = () => {
           <FormGroup>
             <Label for="date">Date</Label>
             <div/>
-            <DatePicker selected={intake.date} onChange={handleDateChange} />
+            <DatePicker selected={ intake.date ? parseDate(intake.date) : intake.date} onChange={handleDateChange} showTimeSelect dateFormat="yyyy-MM-dd HH:mm" locale="hu" />
           </FormGroup>
           <FormGroup>
             <Label for="userId">UserId</Label>

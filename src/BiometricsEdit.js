@@ -19,7 +19,6 @@ const BiometricsEdit = () => {
   const navigate = useNavigate();
   const { date } = useParams();
   const [decodedId, setDecodedId] = useState(null);
-  const [dateFormat, setDateFormat] = useState(new Date());
 
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
@@ -73,7 +72,7 @@ const BiometricsEdit = () => {
           <FormGroup>
             <Label for="date">Date</Label>
             <div/>
-            <DatePicker selected={biometrics.date} onChange={handleDateChange} />
+            <DatePicker selected={biometrics.date} onChange={handleDateChange} dateFormat="yyyy-MM-dd"/>
           </FormGroup>
           <FormGroup>
             <Label for="userId">UserId</Label>

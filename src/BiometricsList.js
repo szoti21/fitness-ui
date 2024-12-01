@@ -51,7 +51,6 @@ const BiometricsList = () => {
   }, []);
 
   const remove = async (date) => {
-    console.log(date);
     await fetchWithAuth(`/fitness/users/${decodedId}/biometrics/${Date.parse(date)}`, {
       method: 'DELETE'
     }).then(() => {

@@ -48,7 +48,6 @@
   }
 
   const setToken = (data) => {
-    console.log("token: ", data);
     sessionStorage.setItem("authToken", data);
 
     const decoded = jwtDecode(data);
@@ -58,7 +57,6 @@
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data.name);
         sessionStorage.setItem("username", data.name);
         sessionStorage.setItem("role", data.role.roleName);
         navigate('/');

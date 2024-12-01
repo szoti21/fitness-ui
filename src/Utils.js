@@ -21,7 +21,7 @@ export const fetchWithAuth = (url, options = {}) => {
           sessionStorage.removeItem("username");
           sessionStorage.removeItem("role");
           console.log("found 401")
-          window.location.href = '/auth/login';
+          //window.location.href = '/auth/login';
                       throw new Error("Network response was not ok");
         }
         else if (!response.ok) {
