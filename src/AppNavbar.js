@@ -32,6 +32,7 @@ const AppNavbar = () => {
       sessionStorage.removeItem("authToken");
       sessionStorage.removeItem("username");
       sessionStorage.removeItem("role");
+      setDecodedId(null);
       setIsLoggedIn(false);
       setIsAdmin(false);
       setUsername("");
@@ -56,8 +57,8 @@ const AppNavbar = () => {
       ) : (
       <Nav className="justify-content-between" style={{width: "30%"}} navbar>
         <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
-        <NavbarBrand tag={Link} to={decodedId ? `/fitness/users/${decodedId}/biometrics` : '/'}>My biometrics</NavbarBrand>
-        <NavbarBrand tag={Link} to="/fitness/users/1/biometrics">My Intake</NavbarBrand>
+        <NavbarBrand tag={Link} to={isLoggedIn ? (decodedId ? `/fitness/users/${decodedId}/biometrics` : '/') : '/auth/login'}>My biometrics</NavbarBrand>
+        <NavbarBrand tag={Link} to={isLoggedIn ? (decodedId ? `/fitness/users/${decodedId}/intake` : '/') : '/auth/login'}>My Intake</NavbarBrand>
       </Nav>
       )}
 

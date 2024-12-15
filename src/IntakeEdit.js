@@ -76,13 +76,25 @@ const IntakeEdit = () => {
     return parsedDate;
   }
 
+  const styles = {
+      header: {
+          textAlign: 'center',
+      },
+      container: {
+          maxWidth: '800px',
+          margin: '2rem auto',
+          padding: '1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      }
+  };
 
-  const title = <h2>{intake.date ? 'Edit Intake' : 'Add Intake'}</h2>;
-
+  const title = <h2 style={styles.header}>{intake.date ? 'Edit Intake' : 'Add Intake'}</h2>;
 
   return (<div>
       <AppNavbar/>
-      <Container>
+      <div style={styles.container}>
         {title}
         <Form onSubmit={handleSubmit}>
           <FormGroup>
@@ -101,7 +113,7 @@ const IntakeEdit = () => {
             </select>
           </FormGroup>
           <FormGroup>
-            <Label for="quantity">quantity</Label>
+            <Label for="quantity">quantity (g)</Label>
             <Input type="text" name="quantity" id="quantity" value={intake.quantity || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
@@ -110,7 +122,7 @@ const IntakeEdit = () => {
             <Button color="secondary" tag={Link} to={`/fitness/users/${decodedId}/intake`}>Cancel</Button>
           </FormGroup>
         </Form>
-      </Container>
+      </div>
     </div>
   )
 

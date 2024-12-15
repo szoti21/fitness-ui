@@ -63,41 +63,64 @@
       }, []);
   }
 
+  const styles = {
+    header: {
+        textAlign: 'center',
+    },
+    container: {
+        maxWidth: '800px',
+        margin: '2rem auto',
+        padding: '1rem',
+        background: 'white',
+        borderRadius: '10px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    },
+    highlight: {
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '1rem',
+    }
+  };
+
   return (<div>
       <AppNavbar/>
-      <Container>
-        <h2>Registration</h2>
+      <div style={styles.container}>
+        <h2 style={styles.header}>Registration</h2>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label for="name">Name</Label>
+            <Label style={styles.highlight} for="name">Name</Label>
             <Input type="text" name="name" id="name" value={registration.name}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="emailAddress">Email</Label>
+            <Label style={styles.highlight} for="emailAddress">Email</Label>
             <Input type="email" name="emailAddress" id="emailAddress" value={registration.emailAddress}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="password">Password</Label>
+            <Label style={styles.highlight} for="password">Password</Label>
             <Input type="password" name="password" id="password" value={registration.password}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="birthDate">Birth Date</Label>
+            <Label style={styles.highlight} for="birthDate">Birth Date</Label>
             <div/>
             <DatePicker selected={registration.birthDate} onChange={handleDateChange} />
           </FormGroup>
           <FormGroup>
-            <Label for="phone">Phone</Label>
+            <Label style={styles.highlight} for="phone">Phone</Label>
             <Input type="tel" name="phone" id="phone" value={registration.phone}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
-          <FormGroup>
-            <Button color="primary" type="submit">Register</Button>{' '}
+          <FormGroup style={styles.buttonContainer}>
+            <Button color = "success" type="submit">Register</Button>{' '}
           </FormGroup>
         </Form>
-      </Container>
+      </div>
     </div>
     )
 

@@ -50,11 +50,25 @@ const FoodEdit = () => {
     }
   }
 
-  const title = <h2>{food.id ? 'Edit Food' : 'Add Food'}</h2>;
+  const styles = {
+      header: {
+          textAlign: 'center',
+      },
+      container: {
+          maxWidth: '800px',
+          margin: '2rem auto',
+          padding: '1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      }
+  };
+
+  const title = <h2 style={styles.header}>{food.id ? 'Edit Food' : 'Add Food'}</h2>;
 
   return (<div>
       <AppNavbar/>
-      <Container>
+      <div style={styles.container}>
         {title}
         <Form onSubmit={handleSubmit}>
           <FormGroup>
@@ -68,17 +82,17 @@ const FoodEdit = () => {
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="protein">Protein</Label>
+            <Label for="protein">Protein (g)</Label>
             <Input type="number" name="protein" id="protein" value={food.protein || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="fat">Fat</Label>
+            <Label for="fat">Fat (g)</Label>
             <Input type="number" name="fat" id="fat" value={food.fat || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="carbohydrates">Carbohydrates</Label>
+            <Label for="carbohydrates">Carbohydrates (g)</Label>
             <Input type="number" name="carbohydrates" id="carbohydrates" value={food.carbohydrates || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
@@ -87,7 +101,7 @@ const FoodEdit = () => {
             <Button color="secondary" tag={Link} to="/fitness/food">Cancel</Button>
           </FormGroup>
         </Form>
-      </Container>
+      </div>
     </div>
   )
 

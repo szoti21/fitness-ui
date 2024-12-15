@@ -6,6 +6,8 @@ import { jwtDecode } from 'jwt-decode';
 import { fetchWithAuth } from './Utils';
 import { parse, format } from 'date-fns';
 import { Line } from "react-chartjs-2";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -80,8 +82,8 @@ const IntakeList = () => {
       <td>{intake.food.fat/100*intake.quantity}</td>
       <td>
         <ButtonGroup>
-          <Button size="sm" color="primary" tag={Link} to={`/fitness/users/${decodedId}/intake/` + Date.parse(intake.date)}>Edit</Button>
-          <Button size="sm" color="danger" onClick={() => remove(intake.date)}>Delete</Button>
+          <Button size="sm" color="primary" tag={Link} to={`/fitness/users/${decodedId}/intake/` + Date.parse(intake.date)}><FontAwesomeIcon icon={faEdit}/></Button>
+          <Button size="sm" color="danger" onClick={() => remove(intake.date)}><FontAwesomeIcon icon={faTrash}/></Button>
         </ButtonGroup>
       </td>
     </tr>
@@ -121,32 +123,66 @@ const data = {
     },
   };
 
+  const styles = {
+      header: {
+          textAlign: 'center',
+      },
+      parentContainer: {
+          display: 'flex',
+          justifyContent: 'flex-start',
+          gap: '20px',
+          flexWrap: 'wrap',
+      },
+      dataContainer: {
+          flex: 1,
+          maxWidth: '800px',
+          margin: '2rem 0',
+          padding: '1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      },
+      diagramContainer: {
+          flex: 1,
+          maxWidth: '700px',
+          margin: '2rem 0',
+          padding: '6rem 1rem 1rem 1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      }
+  };
+
   return (
     <div>
       <AppNavbar/>
-      <Container fluid>
-        <div className="float-end">
-          <Button color="success" tag={Link} to={`/fitness/users/${decodedId}/intake/new`}>Add Data</Button>
+      <div style={styles.parentContainer}>
+        <div style={styles.dataContainer}>
+          <div className="float-end">
+            <Button color="success" tag={Link} to={`/fitness/users/${decodedId}/intake/new`}>Add Data</Button>
+          </div>
+          <h3 style={styles.header}>My Intake</h3>
+          <Table className="mt-4">
+            <thead>
+            <tr>
+              <th>Date</th>
+              <th>Food</th>
+              <th>Quantity (g)</th>
+              <th>kcal</th>
+              <th>protein (g)</th>
+              <th>fat (g)</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {intakeList}
+            </tbody>
+          </Table>
         </div>
-        <h3>My Intake</h3>
-        <Table className="mt-4">
-          <thead>
-          <tr>
-            <th>Date</th>
-            <th>FoodId</th>
-            <th>Quantity(gram)</th>
-            <th>kcal</th>
-            <th>protein</th>
-            <th>fat</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          {intakeList}
-          </tbody>
-        </Table>
-        <Line data={data}/>
-      </Container>
+        <div style={styles.diagramContainer}>
+          <Line data={data}/>
+        </div>
+      </div>
     </div>
   );
 };

@@ -55,26 +55,49 @@
         }, []);
   }
 
+  const styles = {
+    header: {
+        textAlign: 'center',
+    },
+    container: {
+        maxWidth: '800px',
+        margin: '2rem auto',
+        padding: '1rem',
+        background: 'white',
+        borderRadius: '10px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    },
+    highlight: {
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '1rem',
+    }
+  };
+
   return (<div>
       <AppNavbar/>
-      <Container>
-        <h2>Login</h2>
+      <div style={styles.container}>
+        <h2 style={styles.header}>Login</h2>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label for="emailAddress">Email</Label>
+            <Label style={styles.highlight} for="emailAddress">Email</Label>
             <Input type="email" name="emailAddress" id="emailAddress" value={login.emailAddress}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="password">Password</Label>
+            <Label style={styles.highlight} for="password">Password</Label>
             <Input type="password" name="password" id="password" value={login.password}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
-          <FormGroup>
-            <Button color="primary" type="submit">Login</Button>{' '}
+          <FormGroup style={styles.buttonContainer}>
+            <Button color = "success" type="submit">Login</Button>{' '}
           </FormGroup>
         </Form>
-      </Container>
+      </div>
     </div>
     )
 

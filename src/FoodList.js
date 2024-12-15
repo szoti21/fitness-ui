@@ -3,6 +3,8 @@ import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 import { fetchWithAuth } from './Utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const FoodList = () => {
 
@@ -47,29 +49,43 @@ const FoodList = () => {
       <td>{food.carbohydrates}</td>
       <td>
         <ButtonGroup>
-          <Button size="sm" color="primary" tag={Link} to={"/fitness/food/" + food.id}>Edit</Button>
-          <Button size="sm" color="danger" onClick={() => remove(food.id)}>Delete</Button>
+          <Button size="sm" color="primary" tag={Link} to={"/fitness/food/" + food.id}><FontAwesomeIcon icon={faEdit}/></Button>
+          <Button size="sm" color="danger" onClick={() => remove(food.id)}><FontAwesomeIcon icon={faTrash}/></Button>
         </ButtonGroup>
       </td>
     </tr>
   });
 
+  const styles = {
+      header: {
+          textAlign: 'center',
+      },
+      container: {
+          maxWidth: '800px',
+          margin: '2rem auto',
+          padding: '1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      }
+  };
+
   return (
     <div>
       <AppNavbar/>
-      <Container fluid>
+      <div style={styles.container}>
         <div className="float-end">
           <Button color="success" tag={Link} to="/fitness/food/new">Add Food</Button>
         </div>
-        <h3>Foods</h3>
+        <h3 style={styles.header}>Foods</h3>
         <Table className="mt-4">
           <thead>
           <tr>
             <th>Name</th>
             <th>Kcal</th>
-            <th>Protein</th>
-            <th>Fat</th>
-            <th>Carbohydrates</th>
+            <th>Protein (g)</th>
+            <th>Fat (g)</th>
+            <th>Carbohydrates (g)</th>
             <th>Actions</th>
           </tr>
           </thead>
@@ -77,7 +93,7 @@ const FoodList = () => {
           {foodList}
           </tbody>
         </Table>
-      </Container>
+      </div>
     </div>
   );
 };

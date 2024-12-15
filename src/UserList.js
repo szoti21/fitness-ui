@@ -4,6 +4,8 @@ import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 import { fetchWithAuth } from './Utils';
 import { parse, format } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const UserList = () => {
 
@@ -49,21 +51,35 @@ const UserList = () => {
       <td>{user.role.roleName}</td>
       <td>
         <ButtonGroup>
-          <Button size="sm" color="primary" tag={Link} to={ `/fitness/users/${user.id}` } state={{ fromList: true }}>Edit</Button>
-          <Button size="sm" color="danger" onClick={() => remove(user.id)}>Delete</Button>
+          <Button size="sm" color="primary" tag={Link} to={ `/fitness/users/${user.id}` } state={{ fromList: true }}><FontAwesomeIcon icon={faEdit}/></Button>
+          <Button size="sm" color="danger" onClick={() => remove(user.id)}><FontAwesomeIcon icon={faTrash}/></Button>
         </ButtonGroup>
       </td>
     </tr>
   });
 
+
+  const styles = {
+      header: {
+          textAlign: 'center',
+      },
+      container: {
+          maxWidth: '800px',
+          margin: '2rem auto',
+          padding: '1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      }
+  };
   return (
     <div>
       <AppNavbar/>
-      <Container fluid>
+      <div style={styles.container}>
         <div className="float-end">
           <Button color="success" tag={Link} to={"/fitness/users/new"} state={{ fromList: true }}>Add User</Button>
         </div>
-        <h3>MY USERS</h3>
+        <h3 style={styles.header}>Users</h3>
         <Table className="mt-4">
           <thead>
           <tr>
@@ -80,7 +96,7 @@ const UserList = () => {
           {userList}
           </tbody>
         </Table>
-      </Container>
+      </div>
     </div>
   );
 };

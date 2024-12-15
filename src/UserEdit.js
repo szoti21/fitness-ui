@@ -78,11 +78,25 @@ const UserEdit = () => {
     }
   }
 
-  const title = <h2>{user.id ? 'Edit User' : 'Add User'}</h2>;
+  const styles = {
+      header: {
+          textAlign: 'center',
+      },
+      container: {
+          maxWidth: '800px',
+          margin: '2rem auto',
+          padding: '1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      }
+  };
+
+  const title = <h2 style={styles.header}>{user.id ? 'Edit User' : 'Add User'}</h2>;
 
   return (<div>
       <AppNavbar/>
-      <Container>
+      <div style={styles.container}>
         {title}
         <Form onSubmit={handleSubmit}>
           <FormGroup>
@@ -120,7 +134,7 @@ const UserEdit = () => {
             <Button color="secondary" tag={Link} to={location.state.fromList ? "/fitness/users" : "/"}>Cancel</Button>
           </FormGroup>
         </Form>
-      </Container>
+      </div>
     </div>
   )
 

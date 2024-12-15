@@ -60,12 +60,25 @@ const BiometricsEdit = () => {
     }
   }
 
-  const title = <h2>{biometrics.date ? 'Edit Biometrics' : 'Add Biometrics'}</h2>;
+  const styles = {
+      header: {
+          textAlign: 'center',
+      },
+      container: {
+          maxWidth: '800px',
+          margin: '2rem auto',
+          padding: '1rem',
+          background: 'white',
+          borderRadius: '10px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      }
+  };
 
+  const title = <h2 style={styles.header}>{biometrics.date ? 'Edit Biometrics' : 'Add Biometrics'}</h2>;
 
   return (<div>
       <AppNavbar/>
-      <Container>
+      <div style={styles.container}>
         {title}
         <Form onSubmit={handleSubmit}>
           <FormGroup>
@@ -74,17 +87,17 @@ const BiometricsEdit = () => {
             <DatePicker selected={biometrics.date} onChange={handleDateChange} dateFormat="yyyy-MM-dd"/>
           </FormGroup>
           <FormGroup>
-            <Label for="height">height</Label>
+            <Label for="height">height (cm)</Label>
             <Input type="text" name="height" id="height" value={biometrics.height || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="weight">weight</Label>
+            <Label for="weight">weight (kg)</Label>
             <Input type="text" name="weight" id="weight" value={biometrics.weight || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
-            <Label for="bodyFat">bodyFat</Label>
+            <Label for="bodyFat">bodyFat (%)</Label>
             <Input type="text" name="bodyFat" id="bodyFat" value={biometrics.bodyFat || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
@@ -93,7 +106,7 @@ const BiometricsEdit = () => {
             <Button color="secondary" tag={Link} to={`/fitness/users/${decodedId}/biometrics`}>Cancel</Button>
           </FormGroup>
         </Form>
-      </Container>
+      </div>
     </div>
   )
 
