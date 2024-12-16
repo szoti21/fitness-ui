@@ -16,6 +16,7 @@ const UserEdit = () => {
   };
   const [user, setUser] = useState(initialFormState);
   const [roles, setRoles] = useState([]);
+  const [role, setRole] = useState("");
   const [fromList, setFromList] = useState(false);
   const [decodedId, setDecodedId] = useState(null);
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ const UserEdit = () => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
+    setRole(sessionStorage.getItem("role"));
+
     setDecodedId((jwtDecode(token)).id);
     if (id !== 'new') {
       fetchWithAuth(`/fitness/users/${id}`)
@@ -119,16 +122,24 @@ const UserEdit = () => {
             <Input type="tel" name="phone" id="phone" value={user.phone || ''}
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
-          <FormGroup>
+          {
+          role ? (
+
+           <FormGroup>
             <Label for="role-dropdown">Role</Label>
-            <div/>
-            <select id="role-dropdown" value={user.role.roleId} onChange={handleRoleChange}>
-              <option value="" disabled>Select role</option>
-              {roles.map((role) => {
-                  return <option key={role.roleId} value={role.roleId}>{role.roleName}</option>;
-              })}
-            </select>
-          </FormGroup>
+              <div/>
+              <select id="role-dropdown" value={user.role.roleId} onChange={handleRoleChange}>
+                <option value="" disabled>Select role</option>
+                {roles.map((role) => {
+                    return <option key={role.roleId} value={role.roleId}>{role.roleName}</option>;
+                })}
+              </select>
+            </FormGroup>
+
+          ) : ( null )
+
+
+          }
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}
             <Button color="secondary" tag={Link} to={location.state.fromList ? "/fitness/users" : "/"}>Cancel</Button>

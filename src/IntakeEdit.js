@@ -90,7 +90,7 @@ const IntakeEdit = () => {
       }
   };
 
-  const title = <h2 style={styles.header}>{intake.date ? 'Edit Intake' : 'Add Intake'}</h2>;
+  const title = <h2 style={styles.header}>{intake.userId ? 'Edit Intake' : 'Add Intake'}</h2>;
 
   return (<div>
       <AppNavbar/>

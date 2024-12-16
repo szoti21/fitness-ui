@@ -71,21 +71,17 @@ const AppNavbar = () => {
           <NavItem>
             <NavLink tag={Link} to="/auth/login">Login</NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink href="https://google.com">Options</NavLink>
-          </NavItem>
         </Nav>
       ) : (
-
-          <Nav className="justify-content-end" style={{ width: '20%' }} navbar>
-             <ButtonDropdown isOpen={dropdown} toggle={toggle} id="dropdown-basic-button">
-               <DropdownToggle caret>{username}</DropdownToggle>
-               <DropdownMenu>
-                 <DropdownItem tag={Link} to={ `/fitness/users/${decodedId}` } state={{ fromList: false }}>Profile Settings</DropdownItem>
-                 <DropdownItem onClick={handleLogout}>Log out</DropdownItem>
-               </DropdownMenu>
-             </ButtonDropdown>
-          </Nav>
+        <Nav className="justify-content-end" style={{ width: '20%' }} navbar>
+           <ButtonDropdown isOpen={dropdown} toggle={toggle} id="dropdown-basic-button">
+             <DropdownToggle caret>{username}</DropdownToggle>
+             <DropdownMenu>
+               <DropdownItem tag={Link} to={ `/fitness/users/${decodedId}` } state={{ fromList: false }}>Profile Settings</DropdownItem>
+               <DropdownItem onClick={handleLogout}>Log out</DropdownItem>
+             </DropdownMenu>
+           </ButtonDropdown>
+        </Nav>
       )}
 
     </Navbar>

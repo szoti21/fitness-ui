@@ -20,12 +20,13 @@ export const fetchWithAuth = (url, options = {}) => {
           sessionStorage.removeItem("role");
           console.log("found 401")
           window.location.href = '/auth/login';
-                      throw new Error("Network response was not ok");
+          throw new Error("Network response was not ok");
         }
         else if (!response.ok) {
+          window.location.href = '/';
           throw new Error("Network response was not ok");
         }
 
         return response;
     });
-  };
+};

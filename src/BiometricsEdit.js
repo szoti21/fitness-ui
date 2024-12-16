@@ -74,7 +74,7 @@ const BiometricsEdit = () => {
       }
   };
 
-  const title = <h2 style={styles.header}>{biometrics.date ? 'Edit Biometrics' : 'Add Biometrics'}</h2>;
+  const title = <h2 style={styles.header}>{biometrics.userId ? 'Edit Biometrics' : 'Add Biometrics'}</h2>;
 
   return (<div>
       <AppNavbar/>
