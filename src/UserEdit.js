@@ -123,7 +123,7 @@ const UserEdit = () => {
                    onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           {
-          role ? (
+          role == "admin" ? (
 
            <FormGroup>
             <Label for="role-dropdown">Role</Label>

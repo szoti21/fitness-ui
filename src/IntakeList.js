@@ -88,17 +88,21 @@ const IntakeList = () => {
       </td>
     </tr>
   });
-
-const data = {
+const kcalData = {
   labels: intake.map((item) => displayDate(item.date)),
   datasets: [
     {
-      label: "Kcal",
+      label: "kcal",
       data: intake.map((item) => item.food.kcal/100*item.quantity),
       fill: true,
       backgroundColor: "rgba(12,32,42,0.2)",
       borderColor: "rgba(12,32,42,1)"
-    },
+    }
+  ]
+};
+const proteinAndFatData = {
+  labels: intake.map((item) => displayDate(item.date)),
+  datasets: [
     {
       label: "Protein",
       data: intake.map((item) => item.food.protein/100*item.quantity),
@@ -135,7 +139,7 @@ const data = {
       },
       dataContainer: {
           flex: 1,
-          maxWidth: '800px',
+          maxWidth: '1000px',
           margin: '2rem 0',
           padding: '1rem',
           background: 'white',
@@ -144,7 +148,7 @@ const data = {
       },
       diagramContainer: {
           flex: 1,
-          maxWidth: '700px',
+          maxWidth: '400px',
           margin: '2rem 0',
           padding: '6rem 1rem 1rem 1rem',
           background: 'white',
@@ -180,7 +184,8 @@ const data = {
           </Table>
         </div>
         <div style={styles.diagramContainer}>
-          <Line data={data}/>
+          <Line data={kcalData}/>
+          <Line data={proteinAndFatData}/>
         </div>
       </div>
     </div>
